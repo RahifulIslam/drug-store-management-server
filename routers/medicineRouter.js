@@ -6,6 +6,6 @@ router.route('/addmedicine')
             .post(authorize, addMedicine);
 
 router.route('/getallmedicine')
-            .post(authorize, getMedicine);
+            .get(authorize, getMedicine);
 
 module.exports = router;
