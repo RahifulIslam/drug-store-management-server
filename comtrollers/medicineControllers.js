@@ -25,6 +25,49 @@ module.exports.getMedicine = async(req, res)=> {
         const medicines = await Medicine.find();
         return res.status(201).send(medicines)
     } catch(error) {
-        return res.status(500).send("Somethig failed!")
+        return res.status(500).send("Something failed!")
     }
 }
+
+module.exports.addMedicineQuantity = async(req, res)=> {
+    try {
+        const medicineId = req.params.id;
+        console.log("Medicine Id is:", medicineId)
+        const { add_quantities } = req.body;
+        console.log("Quantities are:", add_quantities)
+
+        const medicine = await Medicine.findById(medicineId);
+        if(!medicine) return res.status(404).send({message: "Medicine not found"})
+
+        medicine.quantity += add_quantities;
+        await medicine.save();
+        return res.send({ message: 'Quantity updated successfully', medicine });
+
+    } catch(error){
+        console.error(error);
+        return res.status(500).send({message: "Internal server error"})
+    }
+}
+
+module.exports.updateMedicine = async (req, res) => {
+    try{
+        const medicineId = req.params.id;
+        const updateMedicineData = req.body;
+
+        const medicine = await Medicine.findById(medicineId);
+        if(!medicine) return res.status(404).send({message: "Medicine not found"});
+
+        // Update all information of the medicine with the new data
+        Object.assign(medicine, updateMedicineData);
+
+        // Save the updated medicine
+        await medicine.save();
+
+        return res.json({ message: 'Medicine information updated successfully', medicine });
+    } catch(error) {
+        console.error(error);
+        return res.status(500).send({message:"Internal Server error"})
+    }
+
+}
+
