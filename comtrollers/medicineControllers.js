@@ -71,3 +71,12 @@ module.exports.updateMedicine = async (req, res) => {
 
 }
 
+module.exports.getMedicineNameAndCategory = async(req, res)=>{
+    try{
+        const medicineNameAndType = await Medicine.find({}, 'name type actual_price selling_price');
+        res.json(medicineNameAndType)
+    } catch(error){
+        return res.status(500).json({message: 'Server error', error: error.message})
+    }
+}
+
