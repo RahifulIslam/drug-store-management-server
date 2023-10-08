@@ -43,7 +43,7 @@ const saleSchema = new mongoose.Schema({
         default: Date.now,
     },
 
-    customar: {
+    customer: {
         name: {
             type: String,
         },
