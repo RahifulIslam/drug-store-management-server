@@ -13,6 +13,7 @@ const saleSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
             },
+            
             price: {
                 type: Number,
                 required: true,
@@ -25,39 +26,49 @@ const saleSchema = new mongoose.Schema({
         required: true,
     },
 
-    paid_price: {
+    discount: {
         type: Number,
         required: true,
     },
 
-    rest_price: {
-        type: Number
+    total_after_discount: {
+        type: Number,
+        required: true,
     },
 
     sold_by: {
         type: String,
     },
 
-    date: {
-        type: Date,
-        default: Date.now,
-    },
+    // paid_price: {
+    //     type: Number,
+    //     required: true,
+    // },
 
-    customer: {
-        name: {
-            type: String,
-        },
-        father_name: {
-            type: String,
-        },
-        address: {
-            type: String,
-        },
-        phone_number: {
-            type: String,
-        },
+    // rest_price: {
+    //     type: Number
+    // },
 
-    },
+    // date: {
+    //     type: Date,
+    //     default: Date.now,
+    // },
+
+    // customer: {
+    //     name: {
+    //         type: String,
+    //     },
+    //     father_name: {
+    //         type: String,
+    //     },
+    //     address: {
+    //         type: String,
+    //     },
+    //     phone_number: {
+    //         type: String,
+    //     },
+
+    // },
 
 });
 
