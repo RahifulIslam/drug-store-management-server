@@ -5,8 +5,10 @@ module.exports.createSale = async(req, res)=> {
   // console.log("Paid price", req.body)
     try{
         const medicines = req.body.medicines;
+        // console.log("Medicines are:", medicines)
         const soldBy = req.user.name;
-        const customar = req.body.customar;
+        // console.log("Sold by information are:", soldBy)
+        // const customar = req.body.customar;
         // Calculate the total price
         // let total_price = 0;
         // for (const medicine of medicines) {
@@ -17,10 +19,12 @@ module.exports.createSale = async(req, res)=> {
           const newSale = new Sale({
             medicines: medicines,
             total_price: req.body.total_price,
-            paid_price: req.body.paid_price,
-            rest_price: req.body.rest_price,
+            discount: req.body.discount,
+            total_after_discount: req.body.total_after_discount,
             sold_by: soldBy,
-            customar: customar
+            // paid_price: req.body.paid_price,
+            // rest_price: req.body.rest_price,
+            // customar: customar
           })
 
           await newSale.save();

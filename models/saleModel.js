@@ -5,16 +5,25 @@ const jwt = require('jsonwebtoken');
 const saleSchema = new mongoose.Schema({
     medicines: [
         {
-            medicine: {
+            medicine_id: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Medicine',
             },
+            medicine_name: {
+                type: String,
+            },
+
+            price_per_item: {
+                type: Number,
+                required: true,
+            },
+
             quantity: {
                 type: Number,
                 required: true,
             },
             
-            price: {
+            total_price_each_item: {
                 type: Number,
                 required: true,
             },
