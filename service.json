@@ -1,5 +1,7 @@
 {
-  "MONGODB_SERVER": "mongodb://127.0.0.1:27017/drug-store-management",
+  "DB_PASSWORD": "ykVL5VpAZzm9tIAx",
+  "MONGODB_SERVER": "mongodb+srv://Drug-store-management:ykVL5VpAZzm9tIAx@drug-store-management.elylly3.mongodb.net/drug-store-management",
+  "LOCAL_MONGODB_SERVER": "mongodb://127.0.0.1:27017/drug-store-management",
   "NODE_ENV": "development",
   "PORT": "4000",
   "JWT_SECRET_KEY": "JWT_SECRET_KEY"
