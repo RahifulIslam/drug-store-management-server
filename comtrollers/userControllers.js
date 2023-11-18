@@ -88,16 +88,13 @@ const sendOTP = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  console.log("hi--1");
   try {
     const { email, otp } = req.body;
+    
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    console.log("hi--2");
     // Check if the OTP is valid and not expired
     const currentTimestamp = Date.now();
     if (
@@ -105,10 +102,8 @@ const verifyOTP = async (req, res) => {
       user.resetPasswordOTP.code !== otp ||
       user.resetPasswordOTP.expiresAt < currentTimestamp
     ) {
-      console.log("hi--3");
       return res.status(400).json({ message: "Invalid or expired OTP" });
     } else {
-      console.log("hi--4");
       res.json({ message: "OTP verified successfully" });
     }
   } catch (error) {
