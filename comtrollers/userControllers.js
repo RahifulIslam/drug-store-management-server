@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { User, validate } = require("../models/userModel");
 const { transporter } = require("../middlewares/emailTransporter");
+const axios = require('axios');
 
 const signUp = async (req, res) => {
   const { error } = validate(req.body);
@@ -29,6 +30,24 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
+   // Verify reCAPTCHA token
+   const recaptchaSecret = '6Lff5iIqAAAAAOeucwRMU47G86KxHmfpPCiMqWc5'; // Replace with your actual secret key
+   const recaptchaResponse = req.body.recaptchaToken;
+ 
+   try {
+     const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaResponse}`;
+     const recaptchaResult = await axios.post(recaptchaUrl);
+ 
+     if (!recaptchaResult.data.success) {
+       return res.status(400).send("reCAPTCHA verification failed.");
+     }
+   } catch (error) {
+     console.error('Error verifying reCAPTCHA:', error);
+     return res.status(500).send("Server error during reCAPTCHA verification.");
+   }
+ 
+   // Proceed with the original sign-in logic
+
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Invalid email or password!");
 
